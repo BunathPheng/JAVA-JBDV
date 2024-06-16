@@ -6,7 +6,6 @@ import model.dao.CustomerDao;
 import model.dao.CustomerDaoImpl;
 import model.dto.CustomerDto;
 import model.entity.Customer;
-import model.entity.Order;
 
 import java.util.List;
 import java.util.Scanner;
@@ -19,10 +18,10 @@ public class CustomerServiceImpl implements CustomerService{
             List<Customer> customers = customerDao.queryAllCustomer();
             if(!(customers.isEmpty())){
                 return customerDao.queryAllCustomer().stream()
-                        .map(e-> Mapper.mapCustomerToCustomerDto(e))
+                        .map(Mapper::mapCustomerToCustomerDto)
                         .toList();
             }else {
-                throw new CatchException("No Data !");
+                throw new CatchException("[+] No for Data");
             }
         }catch (CatchException e){
             System.out.println(e.getMessage());
@@ -34,16 +33,23 @@ public class CustomerServiceImpl implements CustomerService{
         customerDao.insertCustomer(customer);
     }
     @Override
-    public int deleteCustomer(Integer id) throws CatchException {
+    public void deleteCustomer(Integer id) {
         try {
-            customerDao.deleteCustomer(id);
-        } catch (Exception e) {
+            if(customerDao.deleteCustomer(id) > 0)
+            {
+                customerDao.deleteCustomer(id);
+                throw new CatchException("Delete Customer Success !");
+            }
+           else
+            {
+                throw new CatchException(" Data isn't not delete !");
+            }
+        } catch (CatchException e) {
             System.out.println(e.getMessage());
         }
-        return 0;
     }
     @Override
-    public int updateCustomer(Integer id) throws CatchException {
+    public void updateCustomer(Integer id){
         try {
              Customer customers = customerDao.searchCustomerById(id);
             if( customers.getName()== null){
@@ -64,12 +70,11 @@ public class CustomerServiceImpl implements CustomerService{
         }catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return 0;
     }
     @Override
-    public CustomerDto searchCustomer(Integer id) throws CatchException {
+    public CustomerDto searchCustomer(Integer id)  {
         try{
-            if(customerDao.searchCustomerById(id)== null)
+            if(customerDao.searchCustomerById(id) == null)
             {
                 throw new CatchException("data not found");
             }else

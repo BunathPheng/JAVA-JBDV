@@ -2,14 +2,11 @@ package controller;
 
 import exception.CatchException;
 import model.dto.OrderDto;
-import model.dto.ProductDto;
 import model.entity.Customer;
 import model.entity.Order;
 import model.entity.Product;
 import model.service.OrderService;
 import model.service.OrderServiceImpl;
-import model.service.ProductService;
-import model.service.ProductServiceImpl;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -27,7 +24,7 @@ public class OrderController {
         String orderDescription = new Scanner(System.in).nextLine();
         System.out.print("[+] Customer ID: ");
         int customerId = new Scanner(System.in).nextInt();
-        System.out.print("Product ID: ");
+        System.out.print("[+] Product ID: ");
         int productId = new Scanner(System.in).nextInt();
         new OrderServiceImpl().insertOrder(Order.builder()
                 .id(new Random().nextInt(100))

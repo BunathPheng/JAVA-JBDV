@@ -5,6 +5,7 @@ import mapper.Mapper;
 import model.dao.ProductDao;
 import model.dao.ProductDaolmpl;
 import model.dto.ProductDto;
+import model.entity.Customer;
 import model.entity.Product;
 
 import java.util.List;
@@ -20,7 +21,18 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDto> queryAllProduct() {
-        return productDao.queryAllProduct().stream().map(element -> Mapper.mapProductToProductDto(element)).toList();
+        try {
+            List<Product> products = productDao.queryAllProduct();
+            if(!(products.isEmpty())){
+                return productDao.queryAllProduct().stream().map(element -> Mapper.mapProductToProductDto(element)).toList();
+
+            }else {
+                throw new CatchException("[+] No for Data");
+            }
+        }catch (CatchException e){
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
 
     @Override

@@ -4,7 +4,6 @@ import model.entity.Customer;
 import model.entity.Order;
 import model.entity.Product;
 
-import javax.sql.rowset.serial.SerialStruct;
 import java.sql.*;
 import java.util.*;
 
@@ -163,7 +162,7 @@ public class OrderDaoImpl implements OrderDao{
                 PreparedStatement preparedStatement = connection.prepareStatement(sql);
                 )
         {
-            Order order = new Order();
+            Order order;
             preparedStatement.setInt(1,id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next())

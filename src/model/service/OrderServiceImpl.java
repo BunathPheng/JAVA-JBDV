@@ -1,12 +1,10 @@
 
 package model.service;
-
 import exception.CatchException;
 import mapper.Mapper;
 import model.dao.OrderDao;
 import model.dao.OrderDaoImpl;
 import model.dto.OrderDto;
-import model.entity.Customer;
 import model.entity.Order;
 
 import java.util.List;
@@ -34,7 +32,7 @@ public class OrderServiceImpl implements OrderService{
         orderDao.addNewOrder(order);
     }
     @Override
-    public int updateOrder(Integer id) throws CatchException {
+    public void updateOrder(Integer id) throws CatchException {
         try {
             Order order = orderDao.searchOrder(id);
             if( order == null){
@@ -55,7 +53,6 @@ public class OrderServiceImpl implements OrderService{
         }catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return 0;
     }
 
 
@@ -85,7 +82,7 @@ public class OrderServiceImpl implements OrderService{
         }catch (CatchException e)
         {
             System.out.println(e.getMessage());
-        }
-        return  null;
+        } return  null;
+
     }
     }

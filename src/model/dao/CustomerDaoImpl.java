@@ -6,7 +6,6 @@ import model.service.CustomerService;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class CustomerDaoImpl implements CustomerDao{
     @Override
@@ -57,8 +56,7 @@ public class CustomerDaoImpl implements CustomerDao{
         {
             stmt.setInt(1,id);
             int rowAffected = stmt.executeUpdate();
-            String message = rowAffected > 0 ? "Successfully deleted" : "No such customer";
-            System.out.println(message);
+             return rowAffected;
         }catch (SQLException e)
         {
             System.out.println(e.getMessage());
@@ -66,27 +64,6 @@ public class CustomerDaoImpl implements CustomerDao{
         return 0;
     }
 
-    @Override
-    public int deleteAllCustomers() {
-        String sql = """
-                DELETE FROM customer;
-                """;
-        try(
-                Connection connection = DriverManager.getConnection(
-                        "jdbc:postgresql://localhost:5432/postgres",
-                        "postgres",
-                        "12345"
-                );
-                PreparedStatement preparedStatement = connection.prepareStatement(sql);
-                ){
-                int rowAffected = preparedStatement.executeUpdate();
-                return rowAffected;
-        }catch (SQLException e)
-        {
-            System.out.println(e.getMessage());
-        }
-        return 0;
-    }
     @Override
     public int updateCustomer(Customer customer , Integer id) {
         String sql = """

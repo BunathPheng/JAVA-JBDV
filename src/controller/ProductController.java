@@ -22,8 +22,6 @@ public class ProductController {
         String name = new Scanner(System.in).nextLine().toLowerCase(Locale.ROOT);
         System.out.print("[+] insert Product Code:");
         String code = new Scanner(System.in).nextLine().toLowerCase(Locale.ROOT);
-        System.out.print("[+] insert Product isDelete:");
-        Boolean delete = new Scanner(System.in).nextBoolean();
         System.out.print("[+] insert Product importAt:");
         String importDate = new Scanner(System.in).nextLine().toLowerCase(Locale.ROOT);
         System.out.print("[+] insert Product description:");
@@ -32,7 +30,7 @@ public class ProductController {
         product = Product.builder()
                 .productName(name)
                 .productCode(code)
-                .isDeleted(delete)
+                .isDeleted(false)
                 .importedDate(Date.valueOf(importDate))
                 .expireddDate(Date.valueOf(LocalDate.now()))
                 .productDescription(description)

@@ -6,7 +6,6 @@ import controller.ProductController;
 import exception.CatchException;
 
 import java.util.Locale;
-import java.util.Map;
 import java.util.Scanner;
 
 public class View {
@@ -47,6 +46,8 @@ public class View {
                     break;
                 case "0","99":
                     System.exit(0);
+                default:
+                    throw new CatchException("Invalid option");
             }
         }catch (Exception e)
         {
@@ -90,6 +91,8 @@ public class View {
                         break;
                     case "0", "99":
                         System.exit(0);
+                    default:
+                        throw new CatchException("Invalid option");
                 }
             }
         } catch (CatchException e) {
@@ -132,6 +135,8 @@ public class View {
                         break;
                     case "0","99":
                         System.exit(0);
+                    default:
+                        throw new CatchException("Invalid option");
                 }
             }
         }catch (CatchException e) {
@@ -174,6 +179,8 @@ public class View {
                         break;
                     case "0", "99":
                         System.exit(0);
+                    default:
+                        throw new CatchException("Invalid option");
                 }
             }
         }catch (CatchException e)

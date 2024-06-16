@@ -1,23 +1,19 @@
 package controller;
 
 import exception.CatchException;
-import model.dao.CustomerDao;
-import model.dao.CustomerDaoImpl;
 import model.dto.CustomerDto;
 import model.entity.Customer;
 import model.service.CustomerService;
 import model.service.CustomerServiceImpl;
-import org.postgresql.gss.GSSOutputStream;
-
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Locale;
+
 import java.util.Scanner;
 
 public class CustomerController {
     private final CustomerService customerService = new CustomerServiceImpl();
-    public List<CustomerDto> getAllCustomers() {
+    public List<CustomerDto> getAllCustomers() throws CatchException {
         return customerService.queryAllCustomers();
     }
     public void insertCustomer() {
@@ -27,14 +23,12 @@ public class CustomerController {
         String email = new Scanner(System.in).nextLine();
         System.out.print("[+] Insert password:");
         String password = new Scanner(System.in).nextLine();
-        System.out.print("[+] Insert IsDelete:");
-        Boolean isDelete = new Scanner(System.in).nextBoolean();
         Customer customer;
         customer = Customer.builder()
                 .name(name)
                 .email(email)
                 .password(password)
-                .isDeleted(isDelete)
+                .isDeleted(false)
                 .createdAt(Date.valueOf(LocalDate.now()))
                 .build();
         customerService.insertCustomer(customer);
